@@ -1,0 +1,30 @@
+<fieldset>
+  <legend>
+    Login here
+  </legend>
+  <table>
+    <tr>
+      <td> userName</td>
+      <td>
+        <input #userNameTextBox type="text" (input)="onUserNameEdit(userNameTextBox.value)" [value]="userName" />
+      </td>
+    </tr>
+    <tr>
+      <td> password</td>
+      <td>
+        <input #passwordTextBox type="password" (input)="onPasswordEdit(passwordTextBox.value)" [value]="password" />
+      </td>
+    </tr>
+    <tr>
+      <td> <input type="button" value="login" (click)="login()"/> </td>
+      <td>
+        <input type="button" value="reset" (click)="clear()"/>
+      </td>
+    </tr>
+<tr>
+  <td>ErrorMessage</td>
+  <td>{{errorMessage}}</td>
+</tr>
+  </table>
+
+</fieldset>

@@ -1,3 +1,5 @@
+
+
 ## Angular Basics
 
 #### SPA Challenges
@@ -129,42 +131,46 @@
         - Angular Project Generation 
           - ng new <AppName>
           - ex: ng new demo 
+    - module generation
+          - ng g module <moduleName>
+    - component generation
+          - ng g component <moduleFolderName>/<componentName> --m <moduleName> --selector <selectorName>
 
     
 
     #### Angular Project Structure
-
+    
     ------
-
+    
     - package .json 
       - node app configuration file
     - angular.json
       - angular  app configuration file 
     - src folder
       - Code Base (modules,components,services, pipes, directives)
-    - index.html
+- index.html
       - DOM Tree 
-    - main.ts
+- main.ts
       - JS Entrypoint 
 
     
 
     ### How to Start Angular Project
-
+    
     ------
-
+    
     - Go Terminal or Node Js Command Prompt
-    - Navigate to Project Folder 
+- Navigate to Project Folder 
     - Execute Command "npm start"
-      - Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** : Compiled successfully.
+  - Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** : Compiled successfully.
       - ![image-20200914090944942](D:\knowledge\Angular_Knowledge\Start_output)
 
     
 
     #### Thinking in Angular
-
+    
     ------
-
+    
     > Think UI Functionality - as-a - Set of Components (Number Of Components)
     >
     > Decompose UI Functionality in to number of SRP based components
@@ -228,13 +234,13 @@
     > }
     > 
     > ```
-    >
+>
     > ​	
-    >
+>
     > ​	
-
+    
     #### How to refer or use Component
-
+    
     
 
 ------
@@ -374,3 +380,229 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
   
 
+#### Module Dependency
+
+------
+
+- Give Module can depend on any number of modules
+
+- imports and exports
+
+- exports - public Api of Module
+
+- ex:
+
+  
+
+```
+a.module.ts (Layout Module)
+
+@NgModule({
+declarations:[X,Y,Z], // HeaderComponent,FooterComponent,ContentComponent
+exports:[X] //HeaderComponent
+})
+//LayoutModule
+export class AModule{
+
+}
+
+//public Api of AModule = X Component
+
+//AppModule
+b.module.ts // depends on a.module
+
+@NgModule({
+declarations:[P,Q,R], //p->AppComponent
+imports[AModule],//LayoutModule
+bootstrap:[P,Q] //AppComponent , HeaderComponent
+})
+export class BModule{
+
+}
+
+//Number of Components Visible in BModule = [P,Q,R,X]
+
+Consider BModule as a RootModule
+
+//Main.ts
+//Bootstrap  BModule as a primary Module
+platformBrowserDynamic().bootstrapModule(BModule)
+  .catch(err => console.error(err));
+  
+//index.html
+<P></P> //AppComponent
+<Q></Q> //HeaderComponent
+
+
+```
+
+
+
+#### Component Children
+
+- ViewChild / ViewChildren
+
+  - A component hosted/ rendered in host component template (view)
+
+  - ```
+    Component - A , Component - B
+    
+    //a.component.ts
+    @Component({
+    selector:'a-comp',
+    templateUrl: 'a.component.html'
+    })
+    export class A{
+    
+    }
+    
+    b.component.ts
+    
+    @Component({
+    selector:'b-comp',
+    templateUrl: 'b.component.html'
+    })
+    export class B{
+    
+    }
+    
+    //b.component.html - View Of Component - B
+    <div>
+    	<a-comp></a-comp> <!-- View Child -->
+    </div>
+    
+    Component - A  is-a ViewChild of Component - B
+    Component - B is-a Host of Component - A 
+    ```
+
+    
+
+- ContentChild / ContentChildren
+
+  - Content defined in the content model of component
+
+  - Content Projection  - Transclusion
+
+  - ```
+    a.component.ts
+    a.component.html
+    	<ng-content><ng-content> // Content Placeholder 
+    
+    b.component.ts
+    
+    b.component.html
+    <a-comp>
+    	<p>Content Model for Component - A </P>
+    </a-comp>
+    
+    <p> element is - a ContentChild of Component - A
+    
+    Component-A instance content model is <p> element
+    
+    By default angular template parser ignore ContentChild of Component
+    
+    ```
+
+    #### How to Render Content-Children of Component ?
+
+    ---
+
+    > use content presenter - "Directives" 
+    >
+    > **Directives** :- Building block of angular , usually referred as **DOM Enhancers** (add, change, event handling )
+    >
+    > Directives are restricted in template scope 
+    >
+    > Built-in Directives / Custom Directives
+    >
+    > "ng-content" is a built in  directive  used for content projection 
+    >
+    > 
+
+    
+
+    ### Multi Content Projection
+
+    ---
+
+    ##### 
+
+    ```
+    import { Component } from "@angular/core";
+    
+    @Component({
+      selector:'para-comp',
+      templateUrl:'./paragraph.component.html'
+    })
+    export class ParagraphComponent{
+    
+    }
+    
+    //paragraph.content.html
+    
+      <ng-content select="p"></ng-content>
+      <ng-content select="h1"></ng-content>
+    
+    
+    
+    //app.component.html
+    
+     <para-comp>
+       <h1>Angular Basics</h1>
+       <p>Introduction to angular </p>
+     </para-comp>
+    <footer-comp>
+    
+    
+    ```
+
+    
+
+    #### Bindings - in- Angular
+
+    ---
+
+    - Data Exchange / Communication b/w Component Logic and their respective  template (View)
+
+    - No support for Two- Way Binding
+
+    - Event Binding
+
+      - Template -> Logic Communication
+      - Grammer
+        - [ TargetProperty] ="SourceProperty"
+      - Example
+        - <input **[value]="userName"** />
+
+    - Property Binding
+
+      - Component Logic -> Template
+      - Grammer 
+        - ( eventName) ="FunctionName()"
+      - Example
+        - <button **(click)="onLogin()"** value="login" />
+
+    - String Interpolation Binding
+
+      - Grammer
+        - {{expression}}
+        - One-Way Binding
+
+    - Template Reference Variable
+
+      - Grammer
+        - #ReferenceName
+      - example 
+        - <input #templateReferenceVariable />
+
+    - Two-Way Binding
+
+      - Property Binding + Event Binding
+
+      - example 
+
+        - ```
+           <input #userNameTextBox type="text" (input)="onUserNameEdit(userNameTextBox.value)" [value]="userName" />
+          ```
+
+          
