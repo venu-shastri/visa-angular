@@ -324,3 +324,53 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
 ```
 
+
+
+- Bootstrap or Root Module - imports - BrowserModule (Built-in Angular Module)
+
+- ```
+  // How to define Module Content like....components
+  //Define Metadata
+  //use built -in angular decorator called @NgModule
+  
+  import {NgModule} from '@angular/core'
+  //When Agular-app Bootstraped in Browser
+  import {BrowserModule} from '@angular/platform-browser'
+  
+  import {AppComponent} from './app.component'
+  
+  @NgModule({
+    declarations:[AppComponent], //Declare Components.....
+    bootstrap:[AppComponent], // BootStrap Components.......
+    imports:[BrowserModule] // List Module Dependency 
+  
+  })
+  export class AppModule{
+  
+  }
+  ```
+
+- How to set Selector for component
+
+- ```
+  //Apply Decorator to define metadata
+  @Component(
+    {
+      templateUrl:'./app.component.html',
+      selector:'app-comp'//css selector
+  
+    })
+  export class AppComponent{
+  
+  }
+  
+  ```
+
+  render Component
+
+  ```
+  <app-comp></app-comp>
+  ```
+
+  
+
