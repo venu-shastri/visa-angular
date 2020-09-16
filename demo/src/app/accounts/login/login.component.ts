@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ILogger } from 'src/app/services/iLogger.service';
+
 
 @Component({
   selector: 'login-comp',
@@ -11,24 +13,30 @@ export class LoginComponent{
   userName:string
   password:string
   errorMessage:string
+  logger:any
 
-  constructor(){
+  //Dependency Injection based on token
+  //Type - ILogger -> token
+  // Injector.get(ILogger /*token name*/ )
+  constructor(@Inject("consolelogger")logger){
+    this.logger=logger;
     this.clear();
+
   }
 
   onUserNameEdit(value){
-    console.log(value);
+    this.logger.write(value);
     this.userName=value;
   }
   onPasswordEdit(value){
-    console.log(value);
+    this.logger.write(value);
     this.password=value;
   }
 
   login(){
 
 if(this.userName=="admin" && this.password=="admin@123"){
-  console.log("login Successfull");
+  this.logger.write("login Successfull");
   this.errorMessage="";
 }
 else{
@@ -39,7 +47,7 @@ else{
 
   clear(){
 
-    console.log("clear button clicked");
+    this.logger.write("clear button clicked");
     this.userName="";
     this.password="";
     this.errorMessage="";
