@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {SearchbarComponent} from '../searchbar/searchbar.component'
 
 @Component({
   selector: 'search-panel-comp',
@@ -8,6 +9,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class SearchpanelComponent implements OnInit {
 
   searchResult:string;
+
+  @ViewChild(SearchbarComponent)
+  searchBarComp:SearchbarComponent;
+
   constructor(@Inject('apilogger') public logger) { }
 
   ngOnInit(): void {
@@ -18,6 +23,7 @@ export class SearchpanelComponent implements OnInit {
     //Invoke Search Service
     this.logger.write(`Invoking Search Service -  key ${payload} `);
     this.searchResult=` Serach Result for key ${payload} result found`;
+    this.logger.write  (` Key From ViewChild ${this.searchBarComp.searchKey}`);
 
 
   }

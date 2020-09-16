@@ -710,9 +710,114 @@ platformBrowserDynamic().bootstrapModule(BModule)
 
               
 
-        
+        ### @Inject and @Injectable
+
+        ---
+
+        > Built-in Decorators
+        >
+        > @Inject - mechanism for letting angular injector know that token value to be injected
+        >
+        > 
+
+    ```
+    @NgModule({
+    providers:[{provide:'url' , useValue:'http://wwww.visa.com/sg/api'}]
+    })
+    
+    login.component.ts
+    export class LoginComponent{
+    
+    constructor(@Inject('url')serverAddress:string){
+    
+    }
+    }
+    ```
+
+    ### @Injectable
+
+    > lets angular know that class has dependency and class can use dependency injector to satisfy its dependencies
+    >
+    > **By Default Components/Directives are Injectable **
+    >
+    > Used Defined Services are not injectable by default
+    >
+    > example  : ConsoleLoggerService , AccountsService , 
+    >
+    > 
 
     
+
+    ### Component Communication
+
+    ---
+
+    - Communication b/w Host Component and ViewChild Component using Input and Out Properties
+
+      - HostComponent --------Input Properties------->ViewChild
+
+      - ViewChild------Output Properties-------->HostComponent
+
+      - Component supports Input and Output Properties
+
+        - Use Property Binding  to bind value for input property
+        - Use Event Binding to bind value for Output property
+
+        ```
+        //input property
+        export class SearchresultComponent implements OnInit {
+        
+          //Input properties are decorated using @Input decorator 
+          @Input()
+          result:string; // value will be set by host component
+        }
+        
+        //Property Binding
+        <SearchresultComponent [result]="HostComponentPropoerty" />
+        ```
+
+        ```
+        //output property
+        export class SearchbarComponent implements OnInit {
+        
+          searchKey:string;
+        
+          //output property - event type
+          @Output
+          searchKeyChanged=new EventEmitter<string>();
+        
+        onSearch(){
+        
+            //Notify Host Component - publish changes 
+            this.searchKeyChanged.emit(this.searchKey);
+          }
+        
+        }
+        
+        //Event Binding
+        
+        <SearchbarComponent (searchKeyChanged)="HostComponentEventListener()" />
+        
+        
+        ```
+
+        - @ViewChild / @ViewChildren
+
+          > Can be used to get the reference of the dom element rendered inside an Angular Component
+
+          
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
 
     
 
