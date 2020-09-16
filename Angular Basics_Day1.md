@@ -156,9 +156,9 @@
     
 
     ### How to Start Angular Project
-    
-    ------
-    
+  
+  ------
+  
     - Go Terminal or Node Js Command Prompt
 - Navigate to Project Folder 
     - Execute Command "npm start"
@@ -168,9 +168,9 @@
     
 
     #### Thinking in Angular
-    
-    ------
-    
+  
+  ------
+  
     > Think UI Functionality - as-a - Set of Components (Number Of Components)
     >
     > Decompose UI Functionality in to number of SRP based components
@@ -238,10 +238,11 @@
     > ​	
 >
     > ​	
-    
+
     #### How to refer or use Component
-    
-    
+
+
+​    
 
 ------
 
@@ -566,17 +567,17 @@ platformBrowserDynamic().bootstrapModule(BModule)
 
     - No support for Two- Way Binding
 
-    - Event Binding
+    - Property Binding
 
-      - Template -> Logic Communication
+      - Template <-  Logic Communication
       - Grammer
-        - [ TargetProperty] ="SourceProperty"
+        - [TargetProperty] ="SourceProperty"
       - Example
         - <input **[value]="userName"** />
 
-    - Property Binding
+    - Event Binding
 
-      - Component Logic -> Template
+      - Component Logic <- Template
       - Grammer 
         - ( eventName) ="FunctionName()"
       - Example
@@ -603,6 +604,126 @@ platformBrowserDynamic().bootstrapModule(BModule)
 
         - ```
            <input #userNameTextBox type="text" (input)="onUserNameEdit(userNameTextBox.value)" [value]="userName" />
-          ```
-
           
+//angular support for Twoway Binding
+          //Banana Box [()] Grammer using ngModel Directive
+          //ngModel Directive -> subscribes textbox change event and update   component property and observes component property changes and updates dom element property
+          
+          <input [(ngModel)]="userName" />
+          [] propertyBinding
+          () eventBinding
+          ngModel Directive
+          userName - Component Property
+          
+          ```
+          
+
+- Inversion of Control Support in Angular
+
+  - Dependency Injection 	
+
+    - Loosely Coupled Solution b/w Objects / Functionalities
+    - Abstraction 
+      - Unit testing (Behavioral Testing )
+    - Constructor Injection 
+
+  - Angular Dependency Injection based on **Providers**
+
+  - Providers
+
+    - A provider is an instruction / helper to the injector on how to obtain a value for a dependency
+    - A Provider is an Object - which allows developer to register service
+    - Providers can be registered at module or component level or scope
+
+    - Service 
+
+      - Reusable entity
+
+      - Singleton
+
+      - Instance of Class
+
+      - Constant Value
+
+      - Function 
+
+      - Factory Function
+
+      - Class Type
+
+      - How to enable Service availability for Dependency Injection
+
+        - Register Provider for Service
+
+        - Example
+
+          - ConsoleLoggerService as Injectable object
+
+            - ```
+              @NgModule({
+              providers:[ { /*Provider Object */ }]
+              })
+              ```
+
+        - Provider Object Details
+
+          - provide - value is considered as  token 
+
+          - token values
+
+            - string
+
+            - className
+
+            - 
+
+              ```
+              consoleLogger.service.ts
+              export class ConsoleLoggerService{
+              
+                write(msg:string):void{
+              
+                  console.log(msg);
+                }
+              }
+              
+              //Enable ConsoleLoggerService as injectable object
+              //Register Provider for Service
+              @NgModule({
+                //token : ConsoleLoggerService
+                //value: instance of ConsoleLoggerService
+                providers:[{provide:ConsoleLoggerService,useClass:ConsoleLoggerService}]
+              })
+              
+              //Let Component request for Dependency via constructor
+              export class LoginComponent{
+                //Dependency Injection based on token
+                //Type - ConsoleLoggerservice -> token
+                // Injector.get(ConsoleLoggerService /*token name*/ )
+                constructor(logger:ConsoleLoggerService){
+                  this.clear();
+                  this.logger=logger;
+                }
+              }
+              
+              ```
+
+              
+
+        
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
