@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ILogger } from 'src/app/services/iLogger.service';
+import { AccountsService } from '../services/accounts.service';
 
 
 @Component({
@@ -7,6 +8,8 @@ import { ILogger } from 'src/app/services/iLogger.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+//By Default @Injectable
 export class LoginComponent{
 
   //data members
@@ -14,12 +17,15 @@ export class LoginComponent{
   password:string
   errorMessage:string
   logger:any
+  accountsService:AccountsService;
 
   //Dependency Injection based on token
   //Type - ILogger -> token
   // Injector.get(ILogger /*token name*/ )
-  constructor(@Inject("consolelogger")logger){
+  constructor(@Inject("consolelogger")logger,
+  accountsService:AccountsService ){
     this.logger=logger;
+    this.accountsService=accountsService;
     this.clear();
 
   }
@@ -35,13 +41,14 @@ export class LoginComponent{
 
   login(){
 
-if(this.userName=="admin" && this.password=="admin@123"){
-  this.logger.write("login Successfull");
-  this.errorMessage="";
-}
-else{
-  this.errorMessage="Invalid Credentials!!!!"
-}
+    if(this.accountsService.validateCredentials(this.userName,this.password)){
+    this.logger.write("Valid Credentials");
+
+    }
+    else{
+      this.logger.write("Invalid Credentials");
+    }
+
 
   }
 
