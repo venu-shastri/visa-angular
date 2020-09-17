@@ -1,0 +1,23 @@
+<fieldset>
+  <legend>Login Here</legend>
+ <table>
+   <tr>
+     <td>UserName</td>
+     <td> <input type="text" #userNameTextBox [(ngModel)]="userName"  /> </td>
+   </tr>
+   <tr>
+    <td>Password</td>
+    <td> <input type="password" #passwordTextBox  [(ngModel)]="password"/> </td>
+  </tr>
+  <tr>
+    <td> <button (click)="login()">Login</button> </td>
+    <td> <button (click)="reset()">Clear</button> </td>
+  </tr>
+  <tr>
+    <td>Error Message</td>
+    <td> <output>{{errorMessage}}</output> </td>
+  </tr>
+ </table>
+
+</fieldset>
+
