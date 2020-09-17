@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {SearchbarComponent} from '../searchbar/searchbar.component'
+import { ApiSearchService } from '../services/apiSearch.service';
 
 @Component({
   selector: 'search-panel-comp',
@@ -13,7 +14,7 @@ export class SearchpanelComponent implements OnInit {
   @ViewChild(SearchbarComponent)
   searchBarComp:SearchbarComponent;
 
-  constructor(@Inject('apilogger') public logger) { }
+  constructor(@Inject('apilogger') public logger, public searchService:ApiSearchService) { }
 
   ngOnInit(): void {
   }

@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms'
 import { SearchpanelComponent } from './searchpanel/searchpanel.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SearchresultComponent } from './searchresult/searchresult.component';
+import {ApiSearchService} from './services/apiSearch.service'
 
 
 
@@ -13,6 +14,7 @@ import { SearchresultComponent } from './searchresult/searchresult.component';
     CommonModule,
     FormsModule
   ],
-  exports:[SearchpanelComponent]
+  exports:[SearchpanelComponent],
+  providers:[{provide:ApiSearchService,useClass:ApiSearchService}]
 })
 export class SearchModule { }

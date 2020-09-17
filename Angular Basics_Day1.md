@@ -604,7 +604,9 @@ platformBrowserDynamic().bootstrapModule(BModule)
 
         - ```
            <input #userNameTextBox type="text" (input)="onUserNameEdit(userNameTextBox.value)" [value]="userName" />
-          
+           ```
+        
+
 //angular support for Twoway Binding
           //Banana Box [()] Grammer using ngModel Directive
           //ngModel Directive -> subscribes textbox change event and update   component property and observes component property changes and updates dom element property
@@ -616,7 +618,7 @@ platformBrowserDynamic().bootstrapModule(BModule)
           userName - Component Property
           
           ```
-          
+
 
 - Inversion of Control Support in Angular
 
@@ -805,30 +807,112 @@ platformBrowserDynamic().bootstrapModule(BModule)
 
           > Can be used to get the reference of the dom element rendered inside an Angular Component
 
-          
-
         
 
         
-
+### # Components Communication Using Services and Rx Js Event Stream
         
 
         
+```
+        //apiSearch.service.ts
 
+        import {Subject} from 'rxjs'
+export class ApiSearchService{
         
-
+      private searchResultSubject=new Subject<string>();
+          searchResultObservableStrem=this.searchResultSubject.asObservable();
+    
+          searchByIdAsync(searchKey){
+    
+            //api - async call
+        setTimeout(()=>{
         
-
+          let searchResult=`Search Result for ${searchKey}`;
+              this.searchResultSubject.next(searchResult); //push item to the stream
     
-
+            },5000);
     
-
+          }
+        
+        }
+        
+        
+        //searchResult.component.ts
+        
+        import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+        import { Subscription } from 'rxjs';
+        import { ApiSearchService } from '../services/apiSearch.service';
+        
+        @Component({
+          selector: 'search-result-comp',
+          templateUrl: './searchresult.component.html',
+          styleUrls: ['./searchresult.component.css']
+        })
+        export class SearchresultComponent implements OnInit , OnDestroy {
+        
+          searchResult:string;
+          subscriptionObjRef:Subscription
+        
+          @Input()
+          service:ApiSearchService
+        
+        constructor() { }
+        
+          //Life Cycle Hook
+          ngOnInit(): void {
+            //Initilaization task - Component Intialized
+            //Subscribe for Observable Stream
+         this.subscriptionObjRef=this.service.searchResultObservableStrem.subscribe((data)=>{
+                this.searchResult=data;
+            });
+          }
+          //LifeCycle Hook
+          ngOnDestroy(){
+            this.subscriptionObjRef.unsubscribe();
+          }
+        }
+        
+        //searchBar.component.ts
+        export class SearchbarComponent {
+        
+          searchKey:string;
+          @ViewChild('searchKeyText')
+          textBoxReference;
+        
+          @Input()
+          service:ApiSearchService;
+        
+          constructor() { }
+        
+          onSearch(){
+            this.service.searchByIdAsync(this.searchKey);
+          }
+        
+        }
+        
+        ```
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
-
     
-
     
-
     
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

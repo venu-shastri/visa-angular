@@ -3,8 +3,8 @@
     searchpanel works!
   </legend>
 
-  <search-bar-comp (searchKeyChanged)="onSearchKeyChanged($event)"></search-bar-comp>
-  <search-result-comp [result]="searchResult"></search-result-comp>
+  <search-bar-comp (searchKeyChanged)="onSearchKeyChanged($event)" [service]="searchService"></search-bar-comp>
+  <search-result-comp [result]="searchResult" [service]="searchService"></search-result-comp>
 </fieldset>
 
 

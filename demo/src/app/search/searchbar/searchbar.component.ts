@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ApiSearchService } from '../services/apiSearch.service';
 
 @Component({
   selector: 'search-bar-comp',
@@ -15,6 +16,9 @@ export class SearchbarComponent implements OnInit {
   @Output()
   searchKeyChanged=new EventEmitter<string>();
 
+  @Input()
+  service:ApiSearchService;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -24,7 +28,8 @@ export class SearchbarComponent implements OnInit {
 
     //Notify Host Component - publish changes
     //this.searchKeyChanged.emit(this.searchKey);
-    this.searchKeyChanged.emit(this.textBoxReference.nativeElement.value);
+    //this.searchKeyChanged.emit(this.textBoxReference.nativeElement.value);
+    this.service.searchByIdAsync(this.searchKey);
   }
 
 }
