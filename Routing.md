@@ -6,7 +6,7 @@
 >
 > **Router State**: A router state is an arrangement of application components that defines what is visible on the screen.
 >
-> Router Configuration : The router configuration defines all the potential **router states** of the application. router configuration is a tree , with every node representing a route
+> **Router Configuration** : The router configuration defines all the potential **router states** of the application. router configuration is a tree , with every node representing a route
 
 
 
@@ -96,16 +96,17 @@
 > ```
 > app.component.html
 > 
-> <router-outlet></router-outlet>
+> //Place Holder for Activated template from current root state
+> <router-outlet></router-outlet> //Directive
 > ```
 
 
 
-> Activate the Route
+> **Activate the Route**
 >
 > - Navigation
 >
-> - Using regular links with hash
+> - Using regular links 
 >
 >   - /home
 >

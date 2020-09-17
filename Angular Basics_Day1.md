@@ -897,6 +897,74 @@ export class ApiSearchService{
         
         
         
+        ### Network communication
+        
+        ---
+        
+        > ```
+        > //accounts.service.ts
+        > 
+        > import {Injectable} from '@angular/core'
+        > import { HttpClient } from '@angular/common/http';
+        > import { Router} from '@angular/router'
+        > 
+        > @Injectable()
+        > export class AccountsService{
+        > 
+        >   httpClient:HttpClient;
+        >   router:Router;
+        >   constructor(httpClient:HttpClient, router:Router){
+        > 
+        >     this.httpClient=httpClient;
+        >     this.router=Router;
+        >   }
+        >   validate(user){
+        > 
+        >     return this.httpClient.post("http://localhost:3200/accounts/validate",user);
+        > 
+        >   }
+        > 
+        > }
+        > 
+        > //login.component.ts
+        > import {AccountsService} from '../services/accounts.service'
+        > 
+        > @NgComponent({...})
+        > class LoginComponent{
+        > ....
+        > constructor(public accountsService:AccountsService){}
+        > 
+        > login(){
+        > 	this.accountsService.validate({userName:this.userName,password:this.password}).
+        > subscribe(
+        > // Success Callback
+        >   (dat1)=>{
+        > 
+        > //Programatic Navigation 
+        >     this.router.navigate(['/dashboard']);
+        >   } ,
+        >   //Error Callback
+        >   (err)=>{
+        > 
+        >     this.errorMessage="Invaild Credentials";
+        >   },
+        >   //Completion Callback
+        >   ()=>{
+        > 
+        >     console.log("Request Completed");
+        >   });
+        > 
+        >   }
+        > 
+        > 
+        > 
+        > }
+        > 
+        > 
+        > ```
+        >
+        > 
+        
         
         
         

@@ -25,10 +25,11 @@ export class LoginComponent implements OnInit {
 
   login(){
 
-this.accountsService.validate({userName:this.userName,password:this.password}).subscribe(
+this.accountsService.validate({userName:this.userName,password:this.password}).
+subscribe(
   (dat1)=>{
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard',this.userName]);
   } ,
   (err)=>{
 
