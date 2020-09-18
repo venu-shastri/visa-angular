@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/general/signin/signin.module')
       .then(mod => mod.SigninModule)
   },
+  {
+    path:'customers',
+    //lazy Loading
+    loadChildren:()=>import('./modules/general/customers/customers.module').then(mod=>mod.CustomersModule)
+  },
   { path: '**', component: NotFoundComponent }
 ];
 

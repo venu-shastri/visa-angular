@@ -173,7 +173,7 @@ this.router.navigate(['/users',this.user.id]);
 
   - Reading Route Parameters: Snapshot
 
-    ```
+    ```typescript
     import{ ActivatedRoute } from'@angular/router';
     ...
     constructor(private route: ActivatedRoute) {
@@ -183,7 +183,7 @@ this.router.navigate(['/users',this.user.id]);
 
   - Reading Route Parameters: Observable
 
-    ```
+    ```typescript
     import{ ActivatedRoute } from'@angular/router';
     ...
     constructor(private route: ActivatedRoute) {
@@ -202,7 +202,7 @@ this.router.navigate(['/users',this.user.id]);
 
 - User Route's Data Property
 
-  ```
+  ```typescript
   app.routing.ts
   
   routes=[
@@ -254,11 +254,11 @@ children: [
 
 > Building a Guard Service
 
-```
+```typescript
 import{ Injectable } from'@angular/core';
 import{ CanActivate} from'@angular/router';
 @Injectable({
-providedIn: 'root'
+providedIn: 'root' // Auto provider registration
 })
 export class AuthGuard implements CanActivate{
 canActivate(): boolean{
@@ -283,7 +283,7 @@ component: userDetailComponent,canActivate: [ AuthGuard]
 
 ## Examples
 
-```
+```typescript
 // user.canDeactivate.ts
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
@@ -331,21 +331,30 @@ const usersRoutes: Routes = [
 
 ---
 
-- Delay loading of Module until needed
+- Delay loading of Module until needed(route activation)
 
 - Speed up initial start time
 
 - Preparing for lazy Loading
 
   - Use a Feature Module
+  
+  - First Create Feature Module
+  
+    - ```
+      ng generate module modules/general/customers --routing
+      ```
+  
+      
+  
   - Not Imported in app module
-
+  
   
 
 ```
 //app.module.ts
 routes: [
-{ path:users , loadChildern: ()=>import('./users/users.module).then(m=>m.UserModule)}
+{ path:customers , loadChildern: ()=>import('./modules/general/customers.module).then(m=>m.CustomersModule)}
 ]
 
 ```
