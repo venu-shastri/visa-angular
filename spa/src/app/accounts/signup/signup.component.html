@@ -1,1 +1,36 @@
-<p>signup works!</p>
+<form novalidate (ngSubmit)='onSignup()'>
+
+    <div class="form-group">
+      <label>User Name</label>
+      <input type="text"
+             class="form-control"
+             formControlName="name"
+             >
+    </div>
+
+ <div class="form-group">
+  <label>Password</label>
+  <input type="password"
+         class="form-control"
+        formControlName="password" >
+</div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email"
+           class="form-control"
+           formControlName="email">
+  </div>
+
+
+  <div class="form-group">
+    <label>Country</label>
+    <select class="form-control" formControlName="country">
+      <option value="">Please select a Country</option>
+      <option *ngFor="let cnt of country"[value]="cnt">
+          {{cnt}}
+       </option>
+    </select>
+  </div>
+  <button type="submit" value="Signup"></button>
+</form>

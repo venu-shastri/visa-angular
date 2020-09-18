@@ -1,0 +1,113 @@
+<h3>User Information</h3>
+<p *ngIf="isValidFormSubmitted" class="success">
+	Form submitted successfully.
+</p>
+<form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+	<table>
+		<tr>
+			<td>Name:</td>
+			<td>
+				<input formControlName="userName">
+				<div *ngIf="userName.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+					<div *ngIf="userName.errors.required">
+						Username required.
+					</div>
+					<div *ngIf="userName.errors.maxlength">
+						Username can be max 15 characters long.
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Age:</td>
+			<td>
+				<input formControlName="age" type="number">
+				<div *ngIf="age.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+					<div *ngIf="age.errors.required">
+						Age required.
+					</div>
+					<div *ngIf="age.errors.min">
+						Minimum age is 18.
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Select Profile: </td>
+			<td>
+				<select formControlName="profile" (change)="onProfileChange()">
+					<option [ngValue]="null" disabled>Choose your profile</option>
+					<option *ngFor="let prf of allProfiles" [ngValue]="prf">
+						{{ prf.prName }}
+					</option>
+				</select>
+				<div *ngIf="profile.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+					<div *ngIf="profile.errors.required">
+						Profile required.
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Select Technologies: </td>
+			<td>
+				<select multiple formControlName="technologies" [compareWith]="compareTech">
+					<option *ngFor="let tech of allTechnologies" [ngValue]="tech">
+						{{ tech.techName }}
+					</option>
+				</select>
+				<div *ngIf="technologies.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+					<div *ngIf="technologies.errors.required">
+						Technologies required.
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Enter Teammates: </td>
+			<td>
+				<div formArrayName="teamMates">
+					<div *ngFor="let teamMate of teamMates.controls; index as i">
+						<input [formControlName]="i" placeholder="Enter teammate name">
+						<button type="button" (click)="deleteUserField(i)">Delete</button>
+					</div>
+				</div>
+				<button type="button" (click)="addUserField()">Add More</button>
+			</td>
+		</tr>
+		<tr>
+			<td>Gender:</td>
+			<td>
+				<input type="radio" value="male" formControlName="gender"> Male
+				<input type="radio" value="female" formControlName="gender"> Female
+				<div *ngIf="gender.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+					<div *ngIf="gender.errors.required">
+						Gender required.
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Are you married? </td>
+			<td>
+				<input type="checkbox" formControlName="isMarried">
+			</td>
+		</tr>
+		<tr>
+			<td>Accept T & C </td>
+			<td>
+				<input type="checkbox" formControlName="tc">
+				<div *ngIf="tc.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
+						Accept T & C.
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button>Submit</button>
+				<button type="button" (click)="setDefaultValues()">Set Default</button>
+				<button type="button" (click)="resetForm(userForm)">Reset</button>
+			</td>
+		</tr>
+	</table>
+</form>
