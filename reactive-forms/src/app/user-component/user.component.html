@@ -2,11 +2,13 @@
 <p *ngIf="isValidFormSubmitted" class="success">
 	Form submitted successfully.
 </p>
+<!-- MAP instance of FormGroup using formGroup Directive-->
 <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
 	<table>
 		<tr>
 			<td>Name:</td>
 			<td>
+        <!-- MAP instance of FormControl using formControlName directive-->
 				<input formControlName="userName">
 				<div *ngIf="userName.errors && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">
 					<div *ngIf="userName.errors.required">
@@ -111,3 +113,4 @@
 		</tr>
 	</table>
 </form>
+<output>{{userForm.value | json}}</output>

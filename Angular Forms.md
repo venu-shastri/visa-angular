@@ -71,7 +71,7 @@ import {Validators} from '@angular/forms'
 this.signupForm = new FormGroup({
       name:new FormControl('', Validators.required),
       email: new FormControl('',[Validators.required,Validators.pattern('[^ @]*@[^ @]*')]),
-      password: new FormControl('',[Validators.minLength(5),Validators.required]),
+      password: new FormControl('',[Validators.minLength(8),Validators.required]),
       country: new FormControl()
 ```
 
@@ -81,11 +81,11 @@ this.signupForm = new FormGroup({
 
 ---
 
-| state   | Description                                                  | Syntax                             |
-| ------- | ------------------------------------------------------------ | ---------------------------------- |
-| Dirty   | `dirty` is `true` if the user has *changed* the value of the control. | {{signupForm.controls.name.dirty}} |
-| valid   | `valid` is `true` of the field doesn’t have any validators or if *all* the validators are passing. | {{signupForm.controls.name.valid}} |
-| touched | `touched` is `true` of the field has been touched by the user, otherwise it’s false. | {{signupForm.controls.name.valid}} |
+| state   | Description                                                  | Syntax                               |
+| ------- | ------------------------------------------------------------ | ------------------------------------ |
+| Dirty   | `dirty` is `true` if the user has *changed* the value of the control. | {{signupForm.controls.name.dirty}}   |
+| valid   | `valid` is `true` of the field doesn’t have any validators or if *all* the validators are passing. | {{signupForm.controls.name.valid}}   |
+| touched | `touched` is `true` of the field has been touched by the user, otherwise it’s false. | {{signupForm.controls.name.touched}} |
 
 **Displaying Validation Messages**
 
@@ -177,6 +177,7 @@ ngOnInit() {
   this.name.valueChanges
       .subscribe(value => {
        //use Value
+      //API
       });
 }
 ```

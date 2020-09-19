@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as jq from 'jquery'
 
 @Component({
    selector: 'app-root',
@@ -10,6 +11,5 @@ import { Component } from '@angular/core';
        <app-cp></app-cp>
    `
 })
-export class AppComponent { 
+export class AppComponent {
 }
-    

@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 	ngOnInit(): void {
 		this.userForm = this.formBuilder.group({
 			userName: ['', [Validators.required, Validators.maxLength(15)]],
-			age: ['', [Validators.required, Validators.min(18)]],			
+			age: ['', [Validators.required, Validators.min(18)]],
 			profile: [null, [Validators.required]],
 			technologies: [null, [Validators.required]],
 			teamMates: this.formBuilder.array([new FormControl()]),
@@ -30,14 +30,15 @@ export class UserComponent implements OnInit {
 			tc: ['', Validators.requiredTrue]
 		});
 		this.allProfiles = this.userService.getPofiles();
-		this.allTechnologies = this.userService.getTechnologies();
+    this.allTechnologies = this.userService.getTechnologies();
+
 	}
 	get userName() {
 		return this.userForm.get('userName');
 	}
 	get age() {
 		return this.userForm.get('age');
-	}	
+	}
 	get profile() {
 		return this.userForm.get('profile');
 	}
@@ -48,11 +49,11 @@ export class UserComponent implements OnInit {
 		return this.userForm.get('teamMates') as FormArray;
 	}
 	get gender() {
-		return this.userForm.get('gender');		
+		return this.userForm.get('gender');
 	}
 	get tc() {
-		return this.userForm.get('tc');		
-	}	
+		return this.userForm.get('tc');
+	}
 	onFormSubmit() {
 		this.isValidFormSubmitted = false;
 		if (this.userForm.invalid) {
