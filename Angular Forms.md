@@ -181,4 +181,50 @@ ngOnInit() {
       });
 }
 ```
-
+```
+<div class="login-form">
+  <form #signupForm="ngForm" (ngSubmit)="signup(signupForm.form)">
+    <h1>Signup</h1>
+    <div class="content">
+      <div class="input-field">
+        <input [(ngModel)]="email"
+         #emailFormControl="ngModel" name="emailCtrl"  type="email" placeholder="Email"
+          autocomplete="nope"
+           required
+            pattern="[^ @]*@[^ @]*">
+      </div>
+      <div *ngIf="emailFormControl.errors && (emailFormControl.dirty || emailFormControl.touched)">
+        <p *ngIf="emailFormControl.errors.required">Email is required</p>
+        <p *ngIf="emailFormControl.errors.pattern">Email must contain at least the @ character</p>
+      </div>
+      <div class="input-field">
+        <input [(ngModel)]="password" #passwordFormControl="ngModel"
+        name="passwordCtrl" type="password"
+          placeholder="Password" autocomplete="new-password"
+          required
+           minlength="5">
+      </div>
+      <div *ngIf="passwordFormControl.errors && (passwordFormControl.dirty || passwordFormControl.touched)">
+        <p *ngIf="passwordFormControl.errors.required">Password is required</p>
+        <p *ngIf="passwordFormControl.errors.minlength">Password must contain at least 5 charcters</p>
+      </div>
+      <div class="input-field">
+        <input [(ngModel)]="confirmPassword" #retypePasswordFormControl="ngModel" name="retypePasswordCtrl" type="password" placeholder="RetypePassword"  autocomplete="new-password" required minlength="5" >
+      </div>
+      <div *ngIf="retypePasswordFormControl.errors && (retypePasswordFormControl.dirty || retypePasswordFormControl.touched)">
+        <p *ngIf="retypePasswordFormControl.errors.required">Password is required</p>
+        <p *ngIf="retypePasswordFormControl.errors.minlength">Password must contain at least 5 charcters</p>
+        <p *ngIf="passwordFormControl.value!=retypePasswordFormControl.value">
+          Password Mismatch
+        </p>
+      </div>
+     <output>{{emailFormControl.value}}</output>
+    </div>
+    <div class="action">
+      <!-- <button>Sign Up</button> -->
+      <input type="submit" value="Sign Up" formnovalidate/>
+      <button (click)="clear(signupForm.form)">Reset</button>
+    </div>
+  </form>
+</div>
+```
