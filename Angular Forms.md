@@ -181,6 +181,40 @@ ngOnInit() {
       });
 }
 ```
+### signup.component.ts
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'signup-component',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
+})
+export class SignupComponent implements OnInit {
+
+  email:string="";
+  password:string="";
+  confirmPassword:string="";
+
+
+  constructor() { }
+  signup(formGroup:any){
+
+    if(formGroup.valid){
+
+    }
+  }
+  clear(formGroup:any){
+
+    formGroup.reset();
+  }
+  ngOnInit(): void {
+  }
+
+}
+
+```
+### signup.component.html
 ```
 <div class="login-form">
   <form #signupForm="ngForm" (ngSubmit)="signup(signupForm.form)">
