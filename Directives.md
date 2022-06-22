@@ -83,11 +83,12 @@ ___
   ```
   
   - Let perform some action on Dom element 
-  <p appHover></>p>
+  
   
   
   
   ```typescript
+  <p appHover></>p>
   element.nativeElement.style.backgroundColor = "red";
   
   or
