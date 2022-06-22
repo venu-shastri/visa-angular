@@ -64,8 +64,7 @@ ___
   - Let Element associated with the directive - using constructor injection 
   
     - > The `ElementRef` gives the directive *direct access* to the DOM element upon which it’s attached.
-      >
-      > allows directive to access HostElement
+      >  allows directive to access HostElement
   
   ```typescript
   import { Directive, ElementRef } from '@angular/core';
@@ -79,6 +78,7 @@ ___
   
 }
   
+   <p appHover></>p>
 
   ```
   
@@ -88,7 +88,7 @@ ___
   
   
   ```typescript
-  <p appHover></>p>
+ 
   element.nativeElement.style.backgroundColor = "red";
   
   or
